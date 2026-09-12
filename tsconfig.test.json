@@ -1,0 +1,27 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "incremental": false,
+    "isolatedModules": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": ".test-dist",
+    "rootDir": ".",
+    "plugins": [],
+    "target": "ES2022"
+  },
+  "include": [
+    "lib/atms/address.ts",
+    "lib/atms/banks.ts",
+    "lib/atms/collection.ts",
+    "lib/atms/constants.ts",
+    "lib/atms/geocoding.ts",
+    "lib/atms/geo.ts",
+    "lib/atms/opening-hours.ts",
+    "lib/atms/search-query.ts",
+    "lib/atms/types.ts",
+    "tests/**/*.test.ts"
+  ]
+}

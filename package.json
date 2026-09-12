@@ -5,10 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:webpack": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test .test-dist/tests/critical.test.js",
+    "check": "npm run typecheck && npm run lint && npm test"
   },
   "dependencies": {
+    "maplibre-gl": "^6.16.0",
     "next": "16.4.4",
     "react": "19.3.0",
     "react-dom": "19.3.0"
