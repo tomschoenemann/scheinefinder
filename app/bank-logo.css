@@ -1,0 +1,26 @@
+.bank-logo--fallback {
+  --bank-color: #fff;
+  --bank-ink: #12211d;
+}
+
+.bank-logo--with-image {
+  background: var(--bank-color, #fff);
+}
+
+.bank-logo--volksbank.bank-logo--with-image {
+  background: #fff;
+}
+
+.bank-logo--commerzbank.bank-logo--with-image,
+.bank-logo--santander.bank-logo--with-image {
+  background: #fff;
+}
+
+.bank-logo--dkb,
+.bank-logo--hypovereinsbank,
+.bank-logo--bw-bank,
+.bank-logo--vietinbank,
+.bank-logo--national-bank {
+  --bank-color: #fff;
+  --bank-ink: #12211d;
+}

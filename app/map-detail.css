@@ -1,0 +1,44 @@
+.map-detail-summary > span.is-open {
+  color: #58d68d !important;
+  font-weight: 800;
+}
+
+.map-detail-summary > span.is-closed {
+  color: #ff7b72 !important;
+  font-weight: 800;
+}
+
+.map-detail-details {
+  max-height: 220px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+
+.map-detail-address,
+.map-detail-hours {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.map-detail-hours {
+  padding-left: 18px;
+  border-left: 1px solid rgba(255, 255, 255, .13);
+}
+
+.map-detail-address {
+  padding-right: 18px;
+}
+
+.map-detail-details b {
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.map-detail-details .hours-list {
+  line-height: 1.5;
+}

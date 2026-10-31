@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Regular-Web.eot");
+  src: url("/fonts/Graphik-Regular-Web.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/Graphik-Regular-Web.woff2") format("woff2"),
+       url("/fonts/Graphik-Regular-Web.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Medium.eot");
+  src: url("/fonts/Graphik-Medium.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/Graphik-Medium.woff") format("woff");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Semibold.eot");
+  src: url("/fonts/Graphik-Semibold.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/Graphik-Semibold.woff") format("woff");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Bold.eot");
+  src: url("/fonts/Graphik-Bold.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/Graphik-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: 700 900;
+  font-display: swap;
+}
+:root { --ink:#12211d; --paper:#f7f5ee; --brand:#112561; --brand-hover:#0b1740; --brand-soft:#e1e5f0; --line:#dedfd8; --font-geist-mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace; }
+* { box-sizing:border-box; }
+html,body { width:100%; min-height:100%; margin:0; }
+body { background:var(--paper); color:var(--ink); font-family:"Graphik",Arial,Helvetica,sans-serif; overflow:hidden; }
+button,input { font:inherit; } button { color:inherit; }
+.app-shell { --edge-gap:18px; --bottom-gap:36px; position:relative; width:100vw; height:100dvh; overflow:hidden; background:var(--paper); }
+.sidebar { position:absolute; z-index:20; top:var(--edge-gap); bottom:var(--bottom-gap); left:var(--edge-gap); display:flex; flex-direction:column; width:414px; min-width:0; min-height:0; overflow:hidden; background:rgba(250,249,244,.97); border:1px solid rgba(18,33,29,.1); border-radius:24px; box-shadow:0 18px 55px rgba(18,33,29,.18); backdrop-filter:blur(18px); transition:width .25s ease; }
+.brand-row { position:relative; flex:0 0 auto; height:82px; display:flex; align-items:center; justify-content:center; gap:13px; padding:0 32px; border-bottom:1px solid var(--line); }
+.brand-wordmark { width:230px; height:auto; display:block; }
+.brand-symbol { display:none; }
+.mobile-locate { position:absolute; right:20px; display:none; border:0; background:transparent; }
+.sidebar-toggle-fab { display:none; }
+.mobile-back-button { display:none; }
+.search-section { flex:0 0 auto; padding:19px 26px 18px; border-bottom:1px solid var(--line); }
+.search-box { height:54px; display:flex; align-items:center; gap:13px; padding-left:17px; overflow:hidden; background:#fff; border:1px solid #ccd0c8; border-radius:20px; box-shadow:0 7px 20px rgba(25,43,37,.06); }
+.search-box:focus-within { border-color:var(--brand); box-shadow:0 0 0 3px rgba(17,37,97,.16); }
+.search-box input { min-width:0; flex:1; border:0; outline:0; color:var(--ink); background:transparent; font-size:16px; } .search-box input::placeholder { color:#8e9894; }
+.search-box button { width:54px; height:52px; display:grid; place-items:center; border:0; border-radius:0 19px 19px 0; background:var(--brand); color:#fff; cursor:pointer; } .search-box button:hover { background:var(--brand-hover); }
+.location-button { display:flex; align-items:center; gap:9px; padding:13px 0 0; border:0; background:transparent; color:#52605b; font-size:14px; font-weight:700; cursor:pointer; }
+.location-button:hover { color:var(--brand); } .location-button:disabled { opacity:.55; }
+.filters-panel { margin:16px -26px 0; padding:18px 26px 0; border-top:1px solid var(--line); }
+.filters-toggle { width:100%; height:30px; display:flex; align-items:center; justify-content:space-between; padding:0; border:0; background:transparent; color:var(--ink); font-size:12px; font-weight:900; line-height:1; letter-spacing:.075em; text-transform:uppercase; cursor:pointer; }
+.filters-toggle>span { height:16px; display:flex; align-items:center; }
+.filters-toggle svg { display:block; flex:none; color:var(--brand); transform:rotate(0); transition:transform .18s ease; }
+.filters-panel.expanded .filters-toggle svg { transform:rotate(90deg); }
+.filter-row { max-height:90px; display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; overflow:visible; opacity:1; transform:translateY(0); visibility:visible; transition:max-height .25s ease,margin-top .25s ease,opacity .18s ease,transform .25s ease,visibility 0s linear 0s; }
+.filters-panel:not(.expanded) .filter-row { max-height:0; margin-top:0; overflow:hidden; opacity:0; transform:translateY(-6px); visibility:hidden; pointer-events:none; transition:max-height .25s ease,margin-top .25s ease,opacity .16s ease,transform .25s ease,visibility 0s linear .25s; }
+.filter-field { min-width:0; display:flex; flex-direction:column; gap:7px; color:#65716d; font-size:10px; font-weight:800; letter-spacing:.075em; text-transform:uppercase; }
+.filter-menu { position:relative; min-width:0; color:var(--ink); font-size:13px; letter-spacing:0; text-transform:none; user-select:none; }
+.filter-trigger { width:100%; height:44px; display:flex; align-items:center; justify-content:space-between; gap:7px; padding:0 12px 0 13px; overflow:hidden; border:1px solid #d6dad4; border-radius:12px; background:#fff; color:var(--ink); cursor:pointer; }
+.filter-trigger>span { min-width:0; overflow:hidden; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.filter-trigger svg { flex:none; transition:transform .15s ease; } .filter-menu.open .filter-trigger { border-color:var(--brand); box-shadow:0 0 0 3px rgba(17,37,97,.12); } .filter-menu.open .filter-trigger svg { transform:rotate(90deg); }
+.filter-options { position:absolute; z-index:35; top:50px; left:0; width:300px; max-width:calc(100vw - 52px); max-height:275px; padding:9px; overflow:auto; visibility:hidden; opacity:0; transform:translateY(-7px) scale(.98); transform-origin:top left; border:1px solid #d9ddd7; border-radius:13px; background:#fff; box-shadow:0 14px 35px rgba(18,33,29,.18); pointer-events:none; transition:opacity .16s ease,transform .2s cubic-bezier(.2,.75,.25,1),visibility 0s linear .2s; }
+.filter-menu.open .filter-options { visibility:visible; opacity:1; transform:translateY(0) scale(1); pointer-events:auto; transition-delay:0s; }
+.filter-field:last-child .filter-options { right:0; left:auto; transform-origin:top right; }
+.filter-options button,.filter-options label { width:100%; min-height:37px; display:flex; align-items:center; gap:10px; padding:8px 10px; border:0; border-radius:9px; background:transparent; color:var(--ink); font-size:13px; font-weight:600; line-height:1.25; text-align:left; cursor:pointer; }
+.filter-options button:hover,.filter-options label:hover,.filter-options button.selected { background:var(--brand-soft); } .filter-options input { width:16px; height:16px; margin:0; accent-color:var(--brand); } .filter-options label>span { min-width:0; flex:1; overflow:visible; line-height:1.25; text-overflow:clip; white-space:normal; } .filter-options label>b { flex:none; color:#7a8581; font-size:11px; font-weight:700; }
+.filter-options label.disabled { color:#aeb5b2; cursor:not-allowed; } .filter-options label.disabled:hover { background:transparent; } .filter-options label.disabled>b { color:#b9bfbc; }
+.results-section { min-height:0; display:flex; flex:1 1 0; flex-direction:column; padding:0; overflow:hidden; }
+.results-heading { display:block; padding:16px 32px 20px; text-align:center; }
+.results-heading h2 { min-width:0; margin:0; color:#64706c; font-size:12px; font-weight:600; line-height:1.45; letter-spacing:0; white-space:normal; }
+.atm-list { min-height:0; flex:1 1 0; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; scrollbar-width:thin; scrollbar-color:#c5c9c1 transparent; }
+.atm-card { width:100%; height:88px; display:grid; grid-template-columns:38px minmax(0,1fr) auto; column-gap:12px; align-items:center; padding:12px 27px 12px 32px; border:0; border-top:1px solid var(--line); background:transparent; text-align:left; cursor:pointer; }
+.atm-card:hover,.atm-card.active { background:#fff; } .atm-card.active { box-shadow:inset 4px 0 0 var(--brand); }
+.atm-index { grid-row:1; width:35px; height:35px; display:grid; place-items:center; }
+.bank-logo { --bank-color:#fff; --bank-ink:#fff; position:relative; width:35px; height:35px; display:grid; place-items:center; flex:none; overflow:hidden; border-radius:10px; background:var(--bank-color,#fff); color:var(--bank-ink); box-shadow:0 2px 8px rgba(18,33,29,.14); font:900 11px/1 Arial,Helvetica,sans-serif; letter-spacing:-.05em; }
+.bank-logo--fallback { --bank-ink:#12211d; }
+.bank-logo--compact { width:35px; height:35px; border-radius:10px; font-size:9px; box-shadow:none; }
+.bank-logo--with-image { padding:0; background:var(--bank-color,#fff); }
+.bank-logo--compact.bank-logo--with-image { padding:0; }
+.bank-logo-image { width:100%; height:100%; display:block; border-radius:6px; object-fit:contain; }
+.bank-logo--compact .bank-logo-image { border-radius:5px; }
+.bank-logo--euronet .bank-logo-image { transform:scale(1.45); }
+.bank-logo--mask { padding:5px; background:var(--bank-color); }
+.bank-logo--compact.bank-logo--mask { padding:4px; }
+.bank-logo-mask { width:100%; height:100%; display:block; background:#fff; mask-mode:alpha; mask-position:center; mask-repeat:no-repeat; mask-size:contain; -webkit-mask-position:center; -webkit-mask-repeat:no-repeat; -webkit-mask-size:contain; }
+.bank-logo-probe { position:absolute; width:1px!important; height:1px!important; opacity:0; pointer-events:none; }
+.bank-logo--sparkasse { --bank-color:#e30613; }
+.bank-logo--psd { --bank-color:#009b72; }
+.bank-logo--volksbank { --bank-color:#0865ad; }
+.bank-logo--volksbank.bank-logo--with-image { background:#fff; }
+.bank-logo--deutsche-bank { --bank-color:#0018a8; }
+.bank-logo--commerzbank { --bank-color:#ffd500; --bank-ink:#242424; }
+.bank-logo--commerzbank.bank-logo--with-image { background:#fff; }
+.bank-logo--postbank { --bank-color:#ffcc00; --bank-ink:#003b7a; }
+.bank-logo--sparda { --bank-color:#ed6b06; }
+.bank-logo--bbbank { --bank-color:#00529b; }
+.bank-logo--bbbank.bank-logo--with-image { background:#fff; }
+.bank-logo--bbbank .bank-logo-image { transform:scale(.92); }
+.bank-logo--reisebank { --bank-color:#5d247a; }
+.bank-logo--santander { --bank-color:#ec0000; }
+.bank-logo--santander.bank-logo--with-image { background:#fff; }
+.bank-logo--reisebank.bank-logo--with-image { background:#fff; }
+.bank-logo--reisebank .bank-logo-image { width:94%; height:94%; }
+.bank-logo--santander .bank-logo-image { transform:scale(.88); }
+.bank-logo--targobank { --bank-color:#00437a; }
+.bank-logo--euronet { --bank-color:#0756a0; }
+.bank-logo--cash-zone { --bank-color:#fff; --bank-ink:#4eaa0a; }
+.bank-logo--cash-zone .bank-logo-image { transform:scale(.92); }
+.bank-logo--ing { --bank-color:#ff6200; }
+.bank-logo--dkb,.bank-logo--hypovereinsbank,.bank-logo--bw-bank,.bank-logo--vietinbank,.bank-logo--national-bank { --bank-color:#fff; --bank-ink:#12211d; }
+.bank-logo--dkb .bank-logo-image { transform:scale(1.28); }
+.bank-logo--hypovereinsbank .bank-logo-image { transform:scale(1.04); }
+.bank-logo--bw-bank .bank-logo-image { transform:scale(1.05); }
+.bank-logo--vietinbank .bank-logo-image { transform:scale(1.03); }
+.bank-logo--national-bank .bank-logo-image { transform:scale(1.08); }
+.bank-logo--n26 { --bank-color:#1f1f1f; }
+.atm-info { grid-row:1; min-width:0; display:flex; flex-direction:column; justify-content:center; gap:4px; } .atm-info strong { overflow:hidden; font-size:15px; line-height:1.25; text-overflow:ellipsis; white-space:nowrap; }
+.atm-info>span { overflow:hidden; color:#64706c; font-size:13px; line-height:1.25; text-overflow:ellipsis; white-space:nowrap; } .atm-info small { max-width:100%; margin-top:2px; overflow:hidden; font-size:12px; font-weight:800; line-height:1.25; letter-spacing:.01em; text-overflow:ellipsis; text-transform:none; white-space:nowrap; }
+.atm-info small.is-open { color:#23734b; } .atm-info small.is-closed { color:#9a4c3b; }
+.atm-distance { grid-row:1; display:flex; align-items:center; gap:8px; padding-top:0; font-size:13px; } .atm-distance b { white-space:nowrap; }
+.atm-card.no-meta { align-items:center; } .atm-card.no-meta .atm-distance { padding-top:0; } .atm-card.no-meta .atm-info { justify-content:center; }
+.hours-list { display:grid; gap:3px; } .hours-list>span { display:block; }
+.map-panel { position:absolute; inset:0; min-width:0; overflow:hidden; background:#e7e7dd; }
+.map { position:absolute; inset:0; overflow:hidden; user-select:none; }
+.map-canvas { position:absolute; inset:0; background:#f2f3f0; }
+.map-marker { position:absolute; z-index:5; width:40px; height:40px; display:grid; place-items:center; transform:translate(-50%,-50%); padding:0; border:2px solid #fff; border-radius:12px; background:#fff; box-shadow:0 5px 14px rgba(18,33,29,.3); cursor:pointer; transition:scale .15s; }
+.map-marker:hover,.map-marker.selected { z-index:7; scale:1.2; outline:3px solid var(--brand); }
+.map-actions { position:absolute; z-index:8; top:26px; right:26px; display:flex; flex-direction:column; overflow:hidden; border-radius:14px; background:#fff; box-shadow:0 5px 18px rgba(19,37,31,.15); }
+.map-actions button { width:46px; height:45px; display:grid; place-items:center; border:0; background:#fff; cursor:pointer; } .map-actions button+button { border-top:1px solid #e0e2dc; } .map-actions button:hover { background:var(--brand); color:#fff; }
+.attribution { position:absolute; z-index:8; right:8px; bottom:5px; padding:4px 8px; border-radius:7px; background:rgba(255,255,255,.83); color:#52605b; font-size:10px; } .attribution a { color:inherit; }
+.map-topbar { position:absolute; z-index:9; top:26px; left:486px; pointer-events:none; transition:left .25s ease; }
+.map-topbar>span { display:flex; align-items:center; gap:8px; max-width:385px; padding:11px 15px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.94); box-shadow:0 4px 16px rgba(18,33,29,.12); font-size:12px; font-weight:700; white-space:nowrap; backdrop-filter:blur(8px); }
+.map-topbar button { display:flex; align-items:center; gap:8px; max-width:385px; padding:11px 15px; overflow:hidden; border:0; border-radius:999px; background:rgba(255,255,255,.94); color:var(--ink); box-shadow:0 4px 16px rgba(18,33,29,.12); font-family:inherit; font-size:12px; font-weight:700; line-height:1; cursor:pointer; pointer-events:auto; white-space:nowrap; backdrop-filter:blur(8px); transition:background .15s ease, transform .15s ease; }
+.map-topbar-label { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.map-topbar button:hover { background:#fff; color:var(--brand); transform:translateY(-1px); }
+.map-topbar button:focus-visible { outline:3px solid rgba(17,37,97,.22); outline-offset:2px; }
+.map-detail { position:absolute; z-index:9; bottom:var(--bottom-gap); left:max(450px,calc(100% - 526px)); width:min(500px,calc(100% - 476px)); min-height:92px; display:grid; grid-template-columns:minmax(0,1fr) 66px; column-gap:16px; align-items:center; padding:14px 16px; border-radius:19px; background:rgba(18,33,29,.96); color:#fff; box-shadow:0 14px 35px rgba(18,33,29,.25); backdrop-filter:blur(10px); }
+.map-detail-toggle { grid-column:1; grid-row:1; min-width:0; display:grid; grid-template-columns:58px minmax(0,1fr) 20px; gap:16px; align-items:center; padding:0; border:0; background:transparent; color:inherit; text-align:left; cursor:pointer; }
+.detail-icon { width:56px; height:56px; display:grid; place-items:center; border-radius:15px; background:rgba(255,255,255,.1); }
+.map-detail-summary { min-width:0; display:flex; flex-direction:column; gap:4px; }
+.map-detail small { color:#b4bcb9; font-size:10px; font-weight:800; letter-spacing:.12em; }
+.map-detail-summary strong,.map-detail-summary>span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.map-detail-summary strong { font-size:16px; } .map-detail-summary>span { color:#c2c8c5; font-size:12px; }
+.map-detail-summary>span.is-open { color:#58d68d; font-weight:800; } .map-detail-summary>span.is-closed { color:#ff7b72; font-weight:800; }
+.map-detail-chevron { display:grid; place-items:center; color:#b4bcb9; } .map-detail-chevron svg { transition:transform .2s ease; } .map-detail.expanded .map-detail-chevron svg { transform:rotate(90deg); }
+.map-detail-route-panel { grid-column:2; grid-row:1; display:flex; align-items:center; justify-content:center; padding-left:14px; border-left:1px solid rgba(255,255,255,.18); }
+.map-detail-route-heading { display:none; }
+.map-detail-routes { display:flex; align-items:center; justify-content:center; }
+.map-detail-route { display:flex; flex-direction:column; align-items:center; gap:4px; color:#8fc2ff; font-size:11px; text-decoration:none; }
+.map-detail-route--apple { display:none; }
+.route-service-icon { width:24px; height:24px; display:block; flex:none; border-radius:7px; background-color:#fff; background-position:center; background-repeat:no-repeat; background-size:contain; box-shadow:inset 0 0 0 1px rgba(18,33,29,.08); }
+.route-service-icon--apple { background-image:url("https://upload.wikimedia.org/wikipedia/commons/3/39/Apple_Maps_Logo_3D.png"); }
+.route-service-icon--google { background-image:url("https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Google_Maps_icon_%282026%29.svg/1280px-Google_Maps_icon_%282026%29.svg.png"); background-size:18px 18px; }
+.map-detail-details-shell { grid-column:1/-1; grid-row:2; display:grid; grid-template-rows:0fr; opacity:0; transform:translateY(-4px); transition:grid-template-rows .24s cubic-bezier(.2,.75,.25,1),opacity .16s ease,transform .24s cubic-bezier(.2,.75,.25,1); }
+.map-detail.expanded .map-detail-details-shell { grid-template-rows:1fr; opacity:1; transform:translateY(0); }
+.map-detail-details { min-height:0; max-height:220px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; padding-top:0; overflow:hidden; border-top:0 solid transparent; color:#c2c8c5; font-size:12px; line-height:1.45; transition:padding-top .24s cubic-bezier(.2,.75,.25,1),border-color .16s ease; }
+.map-detail.expanded .map-detail-details { margin-top:12px; padding-top:12px; overflow:auto; border-top-width:1px; border-top-color:rgba(255,255,255,.16); }
+.map-detail-address,.map-detail-hours { min-width:0; display:flex; flex-direction:column; gap:6px; }
+.map-detail-address { padding-right:18px; }
+.map-detail-hours { padding-left:18px; border-left:1px solid rgba(255,255,255,.13); }
+.map-detail-details b { color:#fff; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+.map-detail-details .hours-list { line-height:1.5; }
+@media (min-width:761px) {
+  .sidebar.collapsed { width:78px; }
+  .sidebar.collapsed .brand-row { height:82px; justify-content:center; padding:0; }
+  .sidebar.collapsed .brand-wordmark,.sidebar.collapsed .search-section,.sidebar.collapsed .results-heading { display:none; }
+  .sidebar.collapsed .brand-symbol { width:40px; height:40px; display:block; }
+  .sidebar-toggle-fab { position:absolute; z-index:22; top:26px; left:440px; width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(18,33,29,.12); border-radius:50%; background:rgba(255,255,255,.96); color:var(--brand); box-shadow:0 5px 16px rgba(18,33,29,.16); cursor:pointer; transition:left .25s ease,background .15s ease,color .15s ease; }
+  .sidebar-toggle-fab svg { transform:rotate(180deg); transition:transform .25s ease; }
+  .sidebar-toggle-fab:hover { background:var(--brand); color:#fff; }
+  .sidebar-is-collapsed .sidebar-toggle-fab { left:104px; }
+  .sidebar-is-collapsed .sidebar-toggle-fab svg { transform:rotate(0); }
+  .sidebar.collapsed .results-section { padding:0; }
+  .sidebar.collapsed .atm-list { scrollbar-gutter:auto; }
+  .sidebar.collapsed .atm-card { height:60px; min-height:60px; grid-template-columns:1fr; justify-items:center; gap:0; padding:13px 0; }
+  .sidebar.collapsed .atm-card.active { box-shadow:inset 3px 0 0 var(--brand); }
+  .sidebar.collapsed .atm-info,.sidebar.collapsed .atm-distance { display:none; }
+  .sidebar-is-collapsed .map-topbar { left:150px; }
+  .sidebar-is-collapsed .map-detail { left:max(150px,calc(100% - 526px)); width:min(500px,calc(100% - 176px)); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .filter-options,.map-detail-details-shell,.map-detail-chevron svg { transition-duration:.01ms!important; }
+}
