@@ -8,7 +8,19 @@ und werden ggf. mit den Einträgen aus `data/custom-atms.json` überschrieben.
 
 **[https://scheinefinder.vercel.app/](https://scheinefinder.vercel.app/)**
 
-## Entwicklung
+<p align="left">
+  <img src="https://github.com/tomschoenemann/scheinefinder/blob/main/public/desktop-01.png?raw=true" width="48%" alt="Desktop">
+  <img src="https://github.com/tomschoenemann/scheinefinder/blob/main/public/desktop-02.png?raw=true" width="48%" alt="Desktop">
+</p>
+
+<p align="left">
+  <img src="https://github.com/tomschoenemann/scheinefinder/blob/main/public/mobile-01.png?raw=true" width="23%" alt="Mobile">
+  <img src="https://github.com/tomschoenemann/scheinefinder/blob/main/public/mobile-02.png?raw=true" width="23%" alt="Mobile">
+  <img src="https://github.com/tomschoenemann/scheinefinder/blob/main/public/mobile-03.png?raw=true" width="23%" alt="Mobile">
+  <img src="https://github.com/tomschoenemann/scheinefinder/blob/main/public/mobile-04.png?raw=true" width="23%" alt="Mobile">
+</p>
+
+## Development
 
 ```bash
 npm install
@@ -23,8 +35,6 @@ npm run check
 
 Der Befehl führt Typecheck, ESLint und Unit-Tests aus. Ein Produktionsbuild kann
 zusätzlich mit `npm run build` geprüft werden.
-
-## Verantwortlichkeiten
 
 `app/page.tsx` setzt nur die ATM-Finder-Funktion zusammen. Der Hook
 `useAtmFinder` koordiniert UI-Zustand und asynchrone Abläufe; er enthält keine
