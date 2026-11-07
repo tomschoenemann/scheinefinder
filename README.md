@@ -1,8 +1,8 @@
 # Scheinefinder
 
-Scheinefinder ist eine Next.js-Anwendung zum Finden und Filtern von Geldautomaten.
+Der Scheinefinder ist eine Next.js-Anwendung zum Finden und Filtern von Geldautomaten.
 Die Karte basiert auf MapLibre/OpenFreeMap; Geldautomatendaten kommen aus OpenStreetMap
-und den kuratierten Einträgen in `data/custom-atms.json`.
+und werden ggf. mit den Einträgen aus `data/custom-atms.json` überschrieben.
 
 ## Entwicklung
 
@@ -11,25 +11,14 @@ npm install
 npm run dev
 ```
 
-Die wichtigsten Qualitätsprüfungen laufen gemeinsam mit:
+Qualitätsprüfungen laufen mit:
 
 ```bash
 npm run check
 ```
 
-Der Befehl führt Typecheck, ESLint und die Unit-Tests aus. Ein Produktionsbuild kann
-zusätzlich mit `npm run build` geprüft werden. Falls Turbopack in einer eingeschränkten
-CI-Umgebung nicht starten kann, steht `npm run build:webpack` als verifizierte
-Alternative bereit.
-
-## Projektstruktur
-
-- `app/`: Next.js-Routen, Layout und serverseitige API-Endpunkte.
-- `features/atm-finder/`: interaktive Anwendung, Komponenten, Hook und Client-API.
-- `lib/atms/`: frameworkunabhängige Domänenlogik und Eingabevalidierung.
-- `lib/http/`: gemeinsame HTTP-Antworten und Cache-Header.
-- `data/`: kuratierte Geldautomatendaten.
-- `tests/`: Tests der kritischen, frameworkunabhängigen Funktionen.
+Der Befehl führt Typecheck, ESLint und Unit-Tests aus. Ein Produktionsbuild kann
+zusätzlich mit `npm run build` geprüft werden.
 
 ## Verantwortlichkeiten
 
