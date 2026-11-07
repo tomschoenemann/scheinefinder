@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scheinefinder
 
-## Getting Started
+Scheinefinder ist eine Next.js-Anwendung zum Finden und Filtern von Geldautomaten.
+Die Karte basiert auf MapLibre/OpenFreeMap; Geldautomatendaten kommen aus OpenStreetMap
+und den kuratierten Einträgen in `data/custom-atms.json`.
 
-First, run the development server:
+## Entwicklung
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Die wichtigsten Qualitätsprüfungen laufen gemeinsam mit:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run check
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Der Befehl führt Typecheck, ESLint und die Unit-Tests aus. Ein Produktionsbuild kann
+zusätzlich mit `npm run build` geprüft werden. Falls Turbopack in einer eingeschränkten
+CI-Umgebung nicht starten kann, steht `npm run build:webpack` als verifizierte
+Alternative bereit.
 
-## Learn More
+## Projektstruktur
 
-To learn more about Next.js, take a look at the following resources:
+- `app/`: Next.js-Routen, Layout und serverseitige API-Endpunkte.
+- `features/atm-finder/`: interaktive Anwendung, Komponenten, Hook und Client-API.
+- `lib/atms/`: frameworkunabhängige Domänenlogik und Eingabevalidierung.
+- `lib/http/`: gemeinsame HTTP-Antworten und Cache-Header.
+- `data/`: kuratierte Geldautomatendaten.
+- `tests/`: Tests der kritischen, frameworkunabhängigen Funktionen.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verantwortlichkeiten
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`app/page.tsx` setzt nur die ATM-Finder-Funktion zusammen. Der Hook
+`useAtmFinder` koordiniert UI-Zustand und asynchrone Abläufe; er enthält keine
+Formatierungs- oder Klassifikationsregeln. Komponenten rendern jeweils einen klar
+abgegrenzten Teil der Oberfläche. Domänenregeln in `lib/atms` bleiben frei von React
+und Next.js und sind dadurch direkt testbar.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Externe Geocoding- und Overpass-Aufrufe werden ausschließlich über Route Handler
+ausgeführt. Diese validieren Eingaben, begrenzen Suchbereiche und geben nur die für
+das Frontend benötigten Felder zurück.
