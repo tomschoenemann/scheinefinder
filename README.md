@@ -1,10 +1,8 @@
-# Scheinefinder
+<img src="https://scheinefinder.vercel.app/brand/wordmark.svg" width=30%>
 
 Der Scheinefinder ist eine Next.js-Anwendung zum Finden und Filtern von Geldautomaten.
 Die Karte basiert auf MapLibre/OpenFreeMap; Geldautomatendaten kommen aus OpenStreetMap
 und werden ggf. mit den Einträgen aus `data/custom-atms.json` überschrieben.
-
-## Preview
 
 **[https://scheinefinder.vercel.app/](https://scheinefinder.vercel.app/)**
 
